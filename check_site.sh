@@ -32,6 +32,7 @@ do
 	then
 	    echo -e "$nowTime : RECOVERY - WEB CHECK" >> $LOGFILE
             mail -s "RECOVERY NOTIFICATION - WEB CHECK" -r IzzAlert@daxko.com izz@linux.com < $LOGFILE
+    	    isDown=0
     	fi
     fi
 
