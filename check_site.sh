@@ -17,16 +17,22 @@ do
     #nowTime=`date -u '+%Y %b %d %H:%M:%S %Z'`
     nowTime=`date -u '+%Y %b %d %H:%M:%S'`
 
+    isDown=0
+
     # alert user and write to log
     if [ $response != 200 ]
     then
-        echo -e "$nowTime : WEB CHECK FAILED!" >> $LOGFILE
+        echo -e "$nowTime : FAILED - WEB CHECK" >> $LOGFILE
 	mail -s "ALERT - WEB CHECK FAILURE!" -r IzzAlert@daxko.com izz@linux.com < $LOGFILE
-	
+	isDown=1
 	#echo -e "DOWN - $nowTime\n"
 
-    #else
-    #    echo -e "UP - $nowTime\n"
+    else
+        if [ $isDown == 1 ]
+	then
+	    echo -e "$nowTime : RECOVERY - WEB CHECK" >> $LOGFILE
+            mail -s "RECOVERY NOTIFICATION - WEB CHECK" -r IzzAlert@daxko.com izz@linux.com < $LOGFILE
+    	fi
     fi
 
     sleep 5
