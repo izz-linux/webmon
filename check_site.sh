@@ -17,8 +17,6 @@ do
     #nowTime=`date -u '+%Y %b %d %H:%M:%S %Z'`
     nowTime=`date -u '+%Y %b %d %H:%M:%S'`
 
-    isDown=0
-
     # alert user and write to log
     if [ $response != 200 ]
     then
@@ -28,7 +26,8 @@ do
 	#echo -e "DOWN - $nowTime\n"
 
     else
-        if [ $isDown == 1 ]
+	#echo -e "The value os down is $isDown\n"
+        if [ "$isDown" == "1" ]
 	then
 	    echo -e "$nowTime : RECOVERY - WEB CHECK" >> $LOGFILE
             mail -s "RECOVERY NOTIFICATION - WEB CHECK" -r IzzAlert@daxko.com izz@linux.com < $LOGFILE
